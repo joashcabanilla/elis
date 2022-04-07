@@ -24,7 +24,7 @@
 <?php if($_SESSION['login'])            
 {
 ?>    
-<section class="menu-section" style="background:#ff8800">
+<section class="menu-section">
         <div class="container">
             <div class="row ">
                 <div class="col-md-12">
