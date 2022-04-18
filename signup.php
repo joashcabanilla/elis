@@ -112,19 +112,19 @@ error:function (){}
                             <form name="signup" method="post" onSubmit="return valid();">
 <div class="form-group">
 <label>Enter Full Name</label>
-<input class="form-control" type="text" name="fullanme" autocomplete="off" required />
+<input class="form-control" type="text" placeholder="Ex. Dela Cruz, Juan Santos" name="fullanme" autocomplete="off" required />
 </div>
 
 
 <div class="form-group">
-<label>Mobile Number :</label>
-<input class="form-control" type="text" name="mobileno" maxlength="10" autocomplete="off" required />
+<label>Mobile Number</label>
+<input class="form-control" type="text" placeholder="Ex. 09876543210" name="mobileno" maxlength="10" autocomplete="off" required />
 </div>
                                         
 <div class="form-group">
-<label>Enter Email</label>
-<input class="form-control" type="email" name="email" id="emailid" onBlur="checkAvailability()"  autocomplete="off" required  />
-   <span id="user-availability-status" style="font-size:12px;"></span> 
+<label>Enter Student Number</label>
+<input class="form-control" type="number" name="email" id="emailid" autocomplete="off" required  />
+   <!-- <span id="user-availability-status" style="font-size:12px;"></span>  -->
 </div>
 
 <div class="form-group">

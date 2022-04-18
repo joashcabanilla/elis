@@ -66,7 +66,7 @@ header('location:reg-students.php');
          <div class="container">
         <div class="row pad-botm">
             <div class="col-md-12">
-                <h4 class="header-line">Manage Reg Students</h4>
+                <h4 class="header-line">Manage Registered Students</h4>
     </div>
 
 
@@ -76,7 +76,7 @@ header('location:reg-students.php');
                     <!-- Advanced Tables -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                          Reg Students
+                          Registered Students
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
@@ -84,11 +84,11 @@ header('location:reg-students.php');
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Student ID</th>
+                                            <th>ID</th>
                                             <th>Student Name</th>
-                                            <th>Email id </th>
+                                            <th>Student Number</th>
                                             <th>Mobile Number</th>
-                                            <th>Reg Date</th>
+                                            <th>Date Registered</th>
                                             <th>Status</th>
                                             <th>Action</th>
                                         </tr>

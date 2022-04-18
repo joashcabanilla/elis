@@ -82,17 +82,17 @@ foreach($results as $result)
 {               ?>  
 
 <div class="form-group">
-<label>Student ID : </label>
+<label>ID : </label>
 <?php echo htmlentities($result->StudentId);?>
 </div>
 
 <div class="form-group">
-<label>Reg Date : </label>
+<label>Registration Date : </label>
 <?php echo htmlentities($result->RegDate);?>
 </div>
 <?php if($result->UpdationDate!=""){?>
 <div class="form-group">
-<label>Last Updation Date : </label>
+<label>Date Modified : </label>
 <?php echo htmlentities($result->UpdationDate);?>
 </div>
 <?php } ?>
@@ -115,12 +115,12 @@ foreach($results as $result)
 
 
 <div class="form-group">
-<label>Mobile Number :</label>
+<label>Mobile Number</label>
 <input class="form-control" type="text" name="mobileno" maxlength="10" value="<?php echo htmlentities($result->MobileNumber);?>" autocomplete="off" required />
 </div>
                                         
 <div class="form-group">
-<label>Enter Email</label>
+<label>Student Number</label>
 <input class="form-control" type="email" name="email" id="emailid" value="<?php echo htmlentities($result->EmailId);?>"  autocomplete="off" required readonly />
 </div>
 <?php }} ?>

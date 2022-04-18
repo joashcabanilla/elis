@@ -81,8 +81,8 @@ return true;
 <form role="form" name="chngpwd" method="post" onSubmit="return valid();">
 
 <div class="form-group">
-<label>Enter Reg Email id</label>
-<input class="form-control" type="email" name="email" required autocomplete="off" />
+<label>Enter Student Number</label>
+<input class="form-control" type="number" name="email" required autocomplete="off" />
 </div>
 
 <div class="form-group">

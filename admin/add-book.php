@@ -111,16 +111,16 @@ Book Info
 
 <div class="col-md-6">   
 <div class="form-group">
-<label>Book Name<span style="color:red;">*</span></label>
+<label>Book Title<span style="color:red;">*</span></label>
 <input class="form-control" type="text" name="bookname" autocomplete="off"  required />
 </div>
 </div>
 
 <div class="col-md-6">  
 <div class="form-group">
-<label> Category<span style="color:red;">*</span></label>
+<label>Subject<span style="color:red;">*</span></label>
 <select class="form-control" name="category" required="required">
-<option value=""> Select Category</option>
+<option value=""> Select Subject</option>
 <?php 
 $status=1;
 $sql = "SELECT * from  tblcategory where Status=:status";

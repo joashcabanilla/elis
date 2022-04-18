@@ -94,7 +94,7 @@ else{
                                         <tr>
                                             <th>#</th>
                                             <th>Student Name</th>
-                                            <th>Book Name</th>
+                                            <th>Book Title</th>
                                             <th>ISBN </th>
                                             <th>Issued Date</th>
                                             <th>Return Date</th>
@@ -149,7 +149,7 @@ foreach($results as $result)
     </div>
 
      <!-- CONTENT-WRAPPER SECTION END-->
-  <?php include('includes/footer.php');?>
+  <!-- <?php include('includes/footer.php');?> -->
       <!-- FOOTER SECTION END-->
     <!-- JAVASCRIPT FILES PLACED AT THE BOTTOM TO REDUCE THE LOADING TIME  -->
     <!-- CORE JQUERY  -->

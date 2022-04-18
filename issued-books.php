@@ -56,7 +56,7 @@ else{
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Book Name</th>
+                                            <th>Book Title</th>
                                             <th>ISBN </th>
                                             <th>Issued Date</th>
                                             <th>Return Date</th>

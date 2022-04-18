@@ -54,6 +54,7 @@ else{
                        
 
 <?php $sql = "SELECT tblbooks.BookName,tblcategory.CategoryName,tblauthors.AuthorName,tblbooks.ISBNNumber,tblbooks.BookPrice,tblbooks.id as bookid,tblbooks.bookImage,tblbooks.isIssued from  tblbooks join tblcategory on tblcategory.id=tblbooks.CatId join tblauthors on tblauthors.id=tblbooks.AuthorId";
+$sql = "SELECT * From tblbooks";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -67,11 +68,12 @@ foreach($results as $result)
 
                                    
                                         
-<img src="admin/bookimg/<?php echo htmlentities($result->bookImage);?>" width="100">
+<!-- <img src="admin/bookimg/<?php echo htmlentities($result->bookImage);?>" width="100"> -->
+<img src="assets/img/book_cover.png" width="100">
                                                 <br /><b><?php echo htmlentities($result->BookName);?></b><br />
-                                                <?php echo htmlentities($result->CategoryName);?><br />
-                                            <?php echo htmlentities($result->AuthorName);?><br />
+                                            <?php echo htmlentities($result->Author);?><br />
                                             <?php echo htmlentities($result->ISBNNumber);?><br />
+                                            <?php echo htmlentities($result->callNumber);?><br />
                                                 <?php if($result->isIssued=='1'): ?>
 <p style="color:red;">Book Already issued</p>
 <?php endif;?>
