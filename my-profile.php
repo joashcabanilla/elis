@@ -12,12 +12,20 @@ if(isset($_POST['update']))
 $sid=$_SESSION['stdid'];  
 $fname=$_POST['fullanme'];
 $mobileno=$_POST['mobileno'];
+$course = $_POST['course'];
+$year = $_POST['year'];
+$section = $_POST['section'];
+$email = $_POST['email'];
 
-$sql="update tblstudents set FullName=:fname,MobileNumber=:mobileno where StudentId=:sid";
+$sql="update tblstudents set FullName=:fname,MobileNumber=:mobileno,Course=:Course,Year=:Year,Section=:Section,EmailId=:EmailId where StudentId=:sid";
 $query = $dbh->prepare($sql);
 $query->bindParam(':sid',$sid,PDO::PARAM_STR);
 $query->bindParam(':fname',$fname,PDO::PARAM_STR);
 $query->bindParam(':mobileno',$mobileno,PDO::PARAM_STR);
+$query->bindParam(':Course',$course,PDO::PARAM_STR);
+$query->bindParam(':Year',$year,PDO::PARAM_STR);
+$query->bindParam(':Section',$section,PDO::PARAM_STR);
+$query->bindParam(':EmailId',$email,PDO::PARAM_STR);
 $query->execute();
 
 echo '<script>alert("Your profile has been updated")</script>';
@@ -70,7 +78,7 @@ echo '<script>alert("Your profile has been updated")</script>';
                             <form name="signup" method="post">
 <?php 
 $sid=$_SESSION['stdid'];
-$sql="SELECT StudentId,FullName,EmailId,MobileNumber,RegDate,UpdationDate,Status from  tblstudents  where StudentId=:sid ";
+$sql="SELECT StudentId,FullName,EmailId,MobileNumber,RegDate,UpdationDate,Status,Course,Year,Section from  tblstudents  where StudentId=:sid ";
 $query = $dbh -> prepare($sql);
 $query-> bindParam(':sid', $sid, PDO::PARAM_STR);
 $query->execute();
@@ -82,8 +90,8 @@ foreach($results as $result)
 {               ?>  
 
 <div class="form-group">
-<label>ID : </label>
-<?php echo htmlentities($result->StudentId);?>
+<label>Student Number : </label>
+<?php echo htmlentities($result->EmailId);?>
 </div>
 
 <div class="form-group">
@@ -109,19 +117,40 @@ foreach($results as $result)
 
 
 <div class="form-group">
-<label>Enter Full Name</label>
+<label>Full Name</label>
 <input class="form-control" type="text" name="fullanme" value="<?php echo htmlentities($result->FullName);?>" autocomplete="off" required />
 </div>
 
 
 <div class="form-group">
 <label>Mobile Number</label>
-<input class="form-control" type="text" name="mobileno" maxlength="10" value="<?php echo htmlentities($result->MobileNumber);?>" autocomplete="off" required />
+<input class="form-control" type="text" name="mobileno" maxlength="11" value="<?php echo htmlentities($result->MobileNumber);?>" autocomplete="off" required />
 </div>
                                         
 <div class="form-group">
 <label>Student Number</label>
-<input class="form-control" type="email" name="email" id="emailid" value="<?php echo htmlentities($result->EmailId);?>"  autocomplete="off" required readonly />
+<input class="form-control" type="number" name="email" id="emailid" value="<?php echo htmlentities($result->EmailId);?>"  autocomplete="off" required />
+</div>
+
+<div class="form-group">
+<label>Course</label>
+<input class="form-control" type="text" name="course" id="course" value="<?php echo htmlentities($result->Course);?>"  autocomplete="off" required />
+</div>
+
+<div class="form-group">
+<label>Year</label>
+<select class="form-control" name="year" id="year">
+    <option hidden value="<?php echo htmlentities($result->Year);?>"><?php echo htmlentities($result->Year);?></option>
+    <option value="1ST">1ST</option>
+    <option value="2ND">2ND</option>
+    <option value="3RD">3RD</option>
+    <option value="4TH">4TH</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>Section</label>
+<input class="form-control" type="text" name="section" id="section" value="<?php echo htmlentities($result->Section);?>"  autocomplete="off" required />
 </div>
 <?php }} ?>
                               

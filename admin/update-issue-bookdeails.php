@@ -11,7 +11,7 @@ else{
 if(isset($_POST['return']))
 {
 $rid=intval($_GET['rid']);
-$fine=$_POST['fine'];
+$fine=0;
 $rstatus=1;
 $bookid=$_POST['bookid'];
 $sql="update tblissuedbookdetails set fine=:fine,RetrunStatus=:rstatus where id=:rid;
@@ -110,7 +110,7 @@ Issued Book Details
 <form role="form" method="post">
 <?php 
 $rid=intval($_GET['rid']);
-$sql = "SELECT tblstudents.StudentId ,tblstudents.FullName,tblstudents.EmailId,tblstudents.MobileNumber,tblbooks.BookName,tblbooks.ISBNNumber,tblissuedbookdetails.IssuesDate,tblissuedbookdetails.ReturnDate,tblissuedbookdetails.id as rid,tblissuedbookdetails.fine,tblissuedbookdetails.RetrunStatus,tblbooks.id as bid,tblbooks.bookImage from  tblissuedbookdetails join tblstudents on tblstudents.StudentId=tblissuedbookdetails.StudentId join tblbooks on tblbooks.id=tblissuedbookdetails.BookId where tblissuedbookdetails.id=:rid";
+$sql = "SELECT tblstudents.Section,tblstudents.Year,tblstudents.Course,tblstudents.StudentId,tblstudents.FullName,tblstudents.EmailId,tblstudents.MobileNumber,tblbooks.BookName,tblbooks.ISBNNumber,tblbooks.callNumber,tblbooks.BookEdition,tblissuedbookdetails.IssuesDate,tblissuedbookdetails.ReturnDate,tblissuedbookdetails.id as rid,tblissuedbookdetails.fine,tblissuedbookdetails.RetrunStatus,tblbooks.id as bid,tblbooks.bookImage from  tblissuedbookdetails join tblstudents on tblstudents.EmailId=tblissuedbookdetails.StudentId join tblbooks on tblbooks.id=tblissuedbookdetails.BookId where tblissuedbookdetails.id=:rid";
 $query = $dbh -> prepare($sql);
 $query->bindParam(':rid',$rid,PDO::PARAM_STR);
 $query->execute();
@@ -128,19 +128,13 @@ foreach($results as $result)
 <hr />
 <div class="col-md-6"> 
 <div class="form-group">
-<label>Student ID :</label>
-<?php echo htmlentities($result->StudentId);?>
-</div></div>
-
-<div class="col-md-6"> 
-<div class="form-group">
 <label>Student Name :</label>
 <?php echo htmlentities($result->FullName);?>
 </div></div>
 
 <div class="col-md-6"> 
 <div class="form-group">
-<label>Student Email Id :</label>
+<label>Student Number:</label>
 <?php echo htmlentities($result->EmailId);?>
 </div></div>
 
@@ -148,6 +142,13 @@ foreach($results as $result)
 <div class="form-group">
 <label>Student Contact No :</label>
 <?php echo htmlentities($result->MobileNumber);?>
+
+</div></div>
+
+<div class="col-md-6"> 
+<div class="form-group">
+<label>Course/Year/Section:</label>
+<?php echo htmlentities($result->Course)."-".htmlentities($result->Year)."-".htmlentities($result->Section);?>
 </div></div>
 
 
@@ -157,21 +158,29 @@ foreach($results as $result)
 
 <div class="col-md-6"> 
 <div class="form-group">
-<label>Book Image :</label>
-<img src="bookimg/<?php echo htmlentities($result->bookImage); ?>" width="120">
-</div></div>
-
-
-<div class="col-md-6"> 
-<div class="form-group">
 <label>Book Name :</label>
 <?php echo htmlentities($result->BookName);?>
 </div>
 </div>
+
 <div class="col-md-6"> 
 <div class="form-group">
 <label>ISBN :</label>
 <?php echo htmlentities($result->ISBNNumber);?>
+</div>
+</div>
+
+<div class="col-md-6"> 
+<div class="form-group">
+<label>Call Number :</label>
+<?php echo htmlentities($result->callNumber);?>
+</div>
+</div>
+
+<div class="col-md-6"> 
+<div class="form-group">
+<label>Book Edition :</label>
+<?php echo htmlentities($result->BookEdition);?>
 </div>
 </div>
 
@@ -193,21 +202,6 @@ foreach($results as $result)
                                             echo htmlentities($result->ReturnDate);
 }
                                             ?>
-</div>
-</div>
-
-<div class="col-md-12"> 
-<div class="form-group">
-<label>Fine (in USD) :</label>
-<?php 
-if($result->fine=="")
-{?>
-<input class="form-control" type="text" name="fine" id="fine"  required />
-
-<?php }else {
-echo htmlentities($result->fine);
-}
-?>
 </div>
 </div>
  <?php if($result->RetrunStatus==0){?>

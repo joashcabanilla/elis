@@ -17,8 +17,12 @@ $fname=$_POST['fullanme'];
 $mobileno=$_POST['mobileno'];
 $email=$_POST['email']; 
 $password=md5($_POST['password']); 
+$course = $_POST['course'];
+$year = $_POST['year'];
+$section = $_POST['section'];
+
 $status=1;
-$sql="INSERT INTO  tblstudents(StudentId,FullName,MobileNumber,EmailId,Password,Status) VALUES(:StudentId,:fname,:mobileno,:email,:password,:status)";
+$sql="INSERT INTO  tblstudents(StudentId,FullName,MobileNumber,EmailId,Password,Status,Course,Year,Section) VALUES(:StudentId,:fname,:mobileno,:email,:password,:status,:Course,:Year,:Section)";
 $query = $dbh->prepare($sql);
 $query->bindParam(':StudentId',$StudentId,PDO::PARAM_STR);
 $query->bindParam(':fname',$fname,PDO::PARAM_STR);
@@ -26,6 +30,9 @@ $query->bindParam(':mobileno',$mobileno,PDO::PARAM_STR);
 $query->bindParam(':email',$email,PDO::PARAM_STR);
 $query->bindParam(':password',$password,PDO::PARAM_STR);
 $query->bindParam(':status',$status,PDO::PARAM_STR);
+$query->bindParam(':Course',$course,PDO::PARAM_STR);
+$query->bindParam(':Year',$year,PDO::PARAM_STR);
+$query->bindParam(':Section',$section,PDO::PARAM_STR);
 $query->execute();
 $lastInsertId = $dbh->lastInsertId();
 if($lastInsertId)
@@ -118,13 +125,34 @@ error:function (){}
 
 <div class="form-group">
 <label>Mobile Number</label>
-<input class="form-control" type="text" placeholder="Ex. 09876543210" name="mobileno" maxlength="10" autocomplete="off" required />
+<input class="form-control" type="text" placeholder="Ex. 09876543210" name="mobileno" maxlength="11" autocomplete="off" required />
 </div>
                                         
 <div class="form-group">
 <label>Enter Student Number</label>
 <input class="form-control" type="number" name="email" id="emailid" autocomplete="off" required  />
    <!-- <span id="user-availability-status" style="font-size:12px;"></span>  -->
+</div>
+
+<div class="form-group">
+<label>Enter Course</label>
+<input class="form-control" type="text" name="course" id="course" autocomplete="off" required  />
+</div>
+
+<div class="form-group">
+<label>Select Year</label>
+<select class="form-control" name="year" id="year" required>
+    <option value="" hidden>Select Year</option>
+    <option value="1ST">1ST</option>
+    <option value="2ND">2ND</option>
+    <option value="3RD">3RD</option>
+    <option value="4TH">4TH</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>Enter Section</label>
+<input class="form-control" type="text" name="section" id="section" autocomplete="off" required  />
 </div>
 
 <div class="form-group">

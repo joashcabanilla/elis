@@ -56,7 +56,7 @@
                                      <li role="presentation"><a role="menuitem" tabindex="-1" href="manage-issued-books.php">Manage Issued Books</a></li>
                                 </ul>
                             </li>
-                             <li><a href="reg-students.php">Reg Students</a></li>
+                             <li><a href="reg-students.php">Registered Students</a></li>
                     
   <li><a href="change-password.php">Change Password</a></li>
                         </ul>

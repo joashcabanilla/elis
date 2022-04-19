@@ -114,7 +114,7 @@ Issue a New Book
 <form role="form" method="post">
 
 <div class="form-group">
-<label>Student id<span style="color:red;">*</span></label>
+<label>Student Number<span style="color:red;">*</span></label>
 <input class="form-control" type="text" name="studentid" id="studentid" onBlur="getstudent()" autocomplete="off"  required />
 </div>
 
@@ -127,14 +127,14 @@ Issue a New Book
 
 
 <div class="form-group">
-<label>ISBN Number or Book Title<span style="color:red;">*</span></label>
-<input class="form-control" type="text" name="booikid" id="bookid" onBlur="getbook()"  required="required" />
+<label>Call Number<span style="color:red;">*</span></label>
+<input class="form-control" type="text" name="callnumber" id="bookid" onBlur="getbook()"  required="required" />
 </div>
 
  <div class="form-group" id="get_book_name">
 
  </div>
-<button type="submit" name="issue" id="submit" class="btn btn-info">Issue Book </button>
+<button type="submit" name="issue" id="submit" class="btn btn-info" disabled>Issue Book </button>
 
                                     </form>
                             </div>

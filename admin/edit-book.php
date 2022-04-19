@@ -14,20 +14,32 @@ $bookname=$_POST['bookname'];
 $category=$_POST['category'];
 $author=$_POST['author'];
 $isbn=$_POST['isbn'];
-$price=$_POST['price'];
+$bookPlace = $_POST['bookPlace'];
+$bookPublisher = $_POST['bookPublisher'];
+$year = $_POST['year'];
+$bookEdition = $_POST['bookEdition'];
+$section = $_POST['section'];
+$bookStatus = $_POST['bookStatus'];
+$callNumber = $_POST['callNumber'];
 $bookid=intval($_GET['bookid']);
-$sql="update  tblbooks set BookName=:bookname,CatId=:category,AuthorId=:author,BookPrice=:price where id=:bookid";
+$sql="update  tblbooks set BookName=:bookname, Subject=:Subject, Author=:Author, ISBNNumber=:ISBNNumber, BookPlace=:BookPlace, BookPublisher=:BookPublisher, Year=:Year, BookEdition=:BookEdition, Section=:Section, BookStatus=:BookStatus, callNumber=:callNumber where id=:bookid";
+//
 $query = $dbh->prepare($sql);
 $query->bindParam(':bookname',$bookname,PDO::PARAM_STR);
-$query->bindParam(':category',$category,PDO::PARAM_STR);
-$query->bindParam(':author',$author,PDO::PARAM_STR);
-$query->bindParam(':price',$price,PDO::PARAM_STR);
+$query->bindParam(':Subject',$category,PDO::PARAM_STR);
+$query->bindParam(':Author',$author,PDO::PARAM_STR);
+$query->bindParam(':ISBNNumber',$isbn,PDO::PARAM_STR);
+$query->bindParam(':BookPlace',$bookPlace,PDO::PARAM_STR);
+$query->bindParam(':BookPublisher',$bookPublisher,PDO::PARAM_STR);
+$query->bindParam(':Year',$year,PDO::PARAM_STR);
+$query->bindParam(':BookEdition',$bookEdition,PDO::PARAM_STR);
+$query->bindParam(':Section',$section,PDO::PARAM_STR);
+$query->bindParam(':BookStatus',$bookStatus,PDO::PARAM_STR);
+$query->bindParam(':callNumber',$callNumber,PDO::PARAM_STR);
 $query->bindParam(':bookid',$bookid,PDO::PARAM_STR);
 $query->execute();
 echo "<script>alert('Book info updated successfully');</script>";
 echo "<script>window.location.href='manage-books.php'</script>";
-
-
 }
 ?>
 <!DOCTYPE html>
@@ -56,7 +68,7 @@ echo "<script>window.location.href='manage-books.php'</script>";
          <div class="container">
         <div class="row pad-botm">
             <div class="col-md-12">
-                <h4 class="header-line">Add Book</h4>
+                <h4 class="header-line">UPdate Book</h4>
                 
                             </div>
 
@@ -72,6 +84,7 @@ Book Info
 <?php 
 $bookid=intval($_GET['bookid']);
 $sql = "SELECT tblbooks.BookName,tblcategory.CategoryName,tblcategory.id as cid,tblauthors.AuthorName,tblauthors.id as athrid,tblbooks.ISBNNumber,tblbooks.BookPrice,tblbooks.id as bookid,tblbooks.bookImage from  tblbooks join tblcategory on tblcategory.id=tblbooks.CatId join tblauthors on tblauthors.id=tblbooks.AuthorId where tblbooks.id=:bookid";
+$sql = "SELECT * From tblbooks where id=:bookid";
 $query = $dbh -> prepare($sql);
 $query->bindParam(':bookid',$bookid,PDO::PARAM_STR);
 $query->execute();
@@ -82,24 +95,24 @@ if($query->rowCount() > 0)
 foreach($results as $result)
 {               ?>  
 
-<div class="col-md-6">
+<!-- <div class="col-md-6">
 <div class="form-group">
 <label>Book Image</label>
 <img src="bookimg/<?php echo htmlentities($result->bookImage);?>" width="100">
 <a href="change-bookimg.php?bookid=<?php echo htmlentities($result->bookid);?>">Change Book Image</a>
-</div></div>
+</div></div> -->
 
 <div class="col-md-6">
 <div class="form-group">
-<label>Book Name<span style="color:red;">*</span></label>
+<label>Book Title<span style="color:red;">*</span></label>
 <input class="form-control" type="text" name="bookname" value="<?php echo htmlentities($result->BookName);?>" required />
 </div></div>
 
 <div class="col-md-6">
 <div class="form-group">
-<label> Category<span style="color:red;">*</span></label>
+<label> Subject<span style="color:red;">*</span></label>
 <select class="form-control" name="category" required="required">
-<option value="<?php echo htmlentities($result->cid);?>"> <?php echo htmlentities($catname=$result->CategoryName);?></option>
+<option value="<?php echo htmlentities($result->Subject);?>"> <?php echo htmlentities($catname=$result->Subject);?></option>
 <?php 
 $status=1;
 $sql1 = "SELECT * from  tblcategory where Status=:status";
@@ -118,7 +131,7 @@ continue;
 else
 {
     ?>  
-<option value="<?php echo htmlentities($row->id);?>"><?php echo htmlentities($row->CategoryName);?></option>
+<option value="<?php echo htmlentities($row->CategoryName);?>"><?php echo htmlentities($row->CategoryName);?></option>
  <?php }}} ?> 
 </select>
 </div></div>
@@ -127,7 +140,7 @@ else
 <div class="form-group">
 <label> Author<span style="color:red;">*</span></label>
 <select class="form-control" name="author" required="required">
-<option value="<?php echo htmlentities($result->athrid);?>"> <?php echo htmlentities($athrname=$result->AuthorName);?></option>
+<option value="<?php echo htmlentities($result->Author);?>"> <?php echo htmlentities($athrname=$result->Author);?></option>
 <?php 
 
 $sql2 = "SELECT * from  tblauthors ";
@@ -144,7 +157,7 @@ continue;
 } else{
 
     ?>  
-<option value="<?php echo htmlentities($ret->id);?>"><?php echo htmlentities($ret->AuthorName);?></option>
+<option value="<?php echo htmlentities($ret->AuthorName);?>"><?php echo htmlentities($ret->AuthorName);?></option>
  <?php }}} ?> 
 </select>
 </div></div>
@@ -153,18 +166,73 @@ continue;
 <div class="col-md-6">
 <div class="form-group">
 <label>ISBN Number<span style="color:red;">*</span></label>
-<input class="form-control" type="text" name="isbn" value="<?php echo htmlentities($result->ISBNNumber);?>"  readonly />
+<input class="form-control" type="text" name="isbn" value="<?php echo htmlentities($result->ISBNNumber);?>" required />
 <p class="help-block">An ISBN is an International Standard Book Number.ISBN Must be unique</p>
 </div></div>
 
 
-<div class="col-md-6">
+<!-- <div class="col-md-6">
  <div class="form-group">
  <label>Price in USD<span style="color:red;">*</span></label>
  <input class="form-control" type="text" name="price" value="<?php echo htmlentities($result->BookPrice);?>"   required="required" />
  </div></div>
- <?php }} ?><div class="col-md-12">
-<button type="submit" name="update" class="btn btn-info">Update </button></div>
+ <?php }} ?><div class="col-md-12"> -->
+
+ <div class="col-md-6">  
+    <div class="form-group">
+        <label>Book Place<span style="color:red;">*</span></label>
+        <input class="form-control" type="text" name="bookPlace" autocomplete="off"   required="required"  value="<?php echo htmlentities($result->BookPlace);?>" />
+    </div>
+</div>
+
+<div class="col-md-6">  
+    <div class="form-group">
+        <label>Book Publisher<span style="color:red;">*</span></label>
+        <input class="form-control" type="text" name="bookPublisher" autocomplete="off"   required="required"  value="<?php echo htmlentities($result->BookPublisher);?>" />
+    </div>
+</div>
+
+<div class="col-md-6">  
+    <div class="form-group">
+        <label>Year<span style="color:red;">*</span></label>
+        <input class="form-control" type="text" name="year" autocomplete="off"   required="required" value="<?php echo htmlentities($result->Year);?>" />
+    </div>
+</div>
+
+<div class="col-md-6">  
+    <div class="form-group">
+        <label>Book Edition<span style="color:red;">*</span></label>
+        <input class="form-control" type="text" name="bookEdition" autocomplete="off"   required="required" value="<?php echo htmlentities($result->BookEdition);?>" />
+    </div>
+</div>
+
+<div class="col-md-6">  
+    <div class="form-group">
+        <label>Section<span style="color:red;">*</span></label>
+        <input class="form-control" type="text" name="section" autocomplete="off"   required="required" value="<?php echo htmlentities($result->Section);?>" />
+    </div>
+</div>
+
+<div class="col-md-6">  
+    <div class="form-group">
+        <label>Book Status<span style="color:red;">*</span></label>
+        <input class="form-control" type="text" name="bookStatus" autocomplete="off"   required="required" value="<?php echo htmlentities($result->BookStatus);?>" />
+    </div>
+</div>
+
+<div class="col-md-6">  
+    <div class="form-group">
+        <label>Call Number<span style="color:red;">*</span></label>
+        <input class="form-control" type="text" name="callNumber" autocomplete="off"   required="required" value="<?php echo htmlentities($result->callNumber);?>" />
+    </div>
+</div>
+
+<div class="col-md-6">  
+    <div class="form-group" style="display:flex;justify-content:center;">
+        <button type="submit" name="update" class="btn btn-info" style="margin-top:3.5rem; width:90%;">Update </button>
+    </div>
+</div>
+</div>
 
                                     </form>
                             </div>

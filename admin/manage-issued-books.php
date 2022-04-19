@@ -94,15 +94,17 @@ else{
                                         <tr>
                                             <th>#</th>
                                             <th>Student Name</th>
+                                            <th>Student Number</th>
                                             <th>Book Title</th>
-                                            <th>ISBN </th>
+                                            <th>ISBN</th>
+                                            <th>Call Number</th>
                                             <th>Issued Date</th>
                                             <th>Return Date</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-<?php $sql = "SELECT tblstudents.FullName,tblbooks.BookName,tblbooks.ISBNNumber,tblissuedbookdetails.IssuesDate,tblissuedbookdetails.ReturnDate,tblissuedbookdetails.id as rid from  tblissuedbookdetails join tblstudents on tblstudents.StudentId=tblissuedbookdetails.StudentId join tblbooks on tblbooks.id=tblissuedbookdetails.BookId order by tblissuedbookdetails.id desc";
+<?php $sql = "SELECT tblstudents.FullName,tblstudents.EmailId,tblbooks.BookName,tblbooks.ISBNNumber,tblbooks.callNumber,tblissuedbookdetails.IssuesDate,tblissuedbookdetails.ReturnDate,tblissuedbookdetails.id as rid from  tblissuedbookdetails join tblstudents on tblstudents.EmailId=tblissuedbookdetails.StudentId join tblbooks on tblbooks.id=tblissuedbookdetails.BookId order by tblissuedbookdetails.id desc";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -114,8 +116,10 @@ foreach($results as $result)
                                         <tr class="odd gradeX">
                                             <td class="center"><?php echo htmlentities($cnt);?></td>
                                             <td class="center"><?php echo htmlentities($result->FullName);?></td>
-                                            <td class="center"><?php echo htmlentities($result->BookName);?></td>
+                                            <td class="center" width="110"><?php echo htmlentities($result->EmailId);?></td>
+                                            <td class="center" width="200"><?php echo htmlentities($result->BookName);?></td>
                                             <td class="center"><?php echo htmlentities($result->ISBNNumber);?></td>
+                                            <td class="center"><?php echo htmlentities($result->callNumber);?></td>
                                             <td class="center"><?php echo htmlentities($result->IssuesDate);?></td>
                                             <td class="center"><?php if($result->ReturnDate=="")
                                             {

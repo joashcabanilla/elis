@@ -14,7 +14,7 @@ $sql = "delete from tblbooks  WHERE id=:id";
 $query = $dbh->prepare($sql);
 $query -> bindParam(':id',$id, PDO::PARAM_STR);
 $query -> execute();
-$_SESSION['delmsg']="Category deleted scuccessfully ";
+$_SESSION['delmsg']="Book deleted scuccessfully ";
 header('location:manage-books.php');
 
 }
@@ -72,6 +72,8 @@ header('location:manage-books.php');
                                             <th>Category</th>
                                             <th>Author</th>
                                             <th>ISBN</th>
+                                            <th>Call Number</th>
+                                            <th>Book Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -94,11 +96,13 @@ foreach($results as $result)
                                             <td class="center"><?php echo htmlentities($result->Subject);?></td>
                                             <td class="center"><?php echo htmlentities($result->Author);?></td>
                                             <td class="center"><?php echo htmlentities($result->ISBNNumber);?></td>
+                                            <td class="center"><?php echo htmlentities($result->callNumber);?></td>
+                                            <td class="center" width="100"><?php echo htmlentities($result->BookStatus);?></td>
                                             <!-- <td class="center"><?php echo htmlentities($result->BookPrice);?></td> -->
                                             <td class="center">
 
-                                            <a href="edit-book.php?bookid=<?php echo htmlentities($result->bookid);?>"><button class="btn btn-primary" style="width:100%; margin-bottom: 1rem;"><i class="fa fa-edit "></i> Edit</button> 
-                                          <a href="manage-books.php?del=<?php echo htmlentities($result->bookid);?>" onclick="return confirm('Are you sure you want to delete?');"" >  <button class="btn btn-danger" style="width:100%;"><i class="fa fa-pencil"></i> Delete</button>
+                                            <a href="edit-book.php?bookid=<?php echo htmlentities($result->id);?>"><button class="btn btn-primary" style="width:100%; margin-bottom: 1rem;"><i class="fa fa-edit "></i> Edit</button> 
+                                          <a href="manage-books.php?del=<?php echo htmlentities($result->id);?>" onclick="return confirm('Are you sure you want to delete?');"" >  <button class="btn btn-danger" style="width:100%;"><i class="fa fa-pencil"></i> Delete</button>
                                             </td>
                                         </tr>
  <?php $cnt=$cnt+1;}} ?>                                      
